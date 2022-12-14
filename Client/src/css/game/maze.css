@@ -1,0 +1,47 @@
+.mazeOuter {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  cursor: grab;
+  max-width: 100vw;
+  height: 100%;
+  width: 100vw;
+  border: 5px solid var(--yellow);
+  border-radius: 15px;
+}
+
+.mazeInner {
+  position: relative;
+  max-width: 80vw;
+  width: fit-content;
+  min-width: 0;
+  max-height: min(80vh);
+  display: grid;
+  place-items: start;
+}
+
+/* width */
+.mazeOuter::-webkit-scrollbar {
+  width: 18px;
+}
+
+/* Track */
+.mazeOuter::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--white-green);
+  border-radius: 5px;
+}
+
+/* Handle */
+.mazeOuter::-webkit-scrollbar-thumb {
+  background: var(--white-green);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.mazeOuter::-webkit-scrollbar-thumb:hover {
+  background: var(--yellow);
+}
+
+.mazeOuter::-webkit-scrollbar-corner {
+  background: var(--green);
+}

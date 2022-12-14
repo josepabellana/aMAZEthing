@@ -1,0 +1,27 @@
+.towerPopup {
+  background-color: var(--white-green);
+  border-radius: 15px;
+  border: 2px solid var(--yellow);
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.downPopup {
+  top: 100%;
+  left: -50%;
+}
+
+.upPopup {
+  top: -200%;
+  left: -50%;
+}
+
+.leftPopup {
+  left: -200%
+}

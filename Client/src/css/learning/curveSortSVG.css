@@ -1,0 +1,61 @@
+.path-finding-algs,
+.sorting-algs {
+  background-color: var(--white);
+}
+
+.curve {
+  height: 70vh;
+  position: relative;
+}
+
+svg {
+  height: 100%;
+  width: 100%;
+}
+
+.learning-path {
+  fill: none;
+  stroke: var(--dark-brown);
+  stroke-width: 0.8;
+}
+
+.circles {
+  fill: var(--white);
+  stroke: var(--dark-brown);
+  stroke-width: 0.6;
+}
+
+.circles:hover {
+  fill: var(--dark-brown);
+  cursor: pointer;
+}
+
+.nut {
+  fill: var(--dark-brown);
+  pointer-events: none;
+}
+
+.disabled {
+  fill: var(--dark-brown);
+}
+
+.disabled:hover{
+  cursor: default;
+}
+
+.doneLesson {
+  fill: var(--yellow);
+
+}
+
+.lesson-name {
+  fill: var(--dark-brown);
+  stroke: var(--dark-brown);
+  stroke-width: 0.1px;
+  font-variant: all-small-caps;
+  font-size: 3.5px;
+}
+
+.lesson-name-label {
+  fill: var(--white-green);
+}

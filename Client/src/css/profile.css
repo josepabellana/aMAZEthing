@@ -1,0 +1,190 @@
+
+.avatar {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50px;
+    margin: 5% 0;
+}
+
+.profile-page {
+    background-color: var(--white);
+    height: 90vh;
+    overflow: auto;
+}
+
+.profile-page h1, .profile-page h2 {
+    font-size: 2rem;
+}
+
+.profile-page h3 {
+    font-size: 1rem;
+}
+
+.profile-page h4 {
+    font-size: 0.75rem;
+}
+
+.user-dashboard {
+    min-height: 510px;
+    height: 50vh;
+    width: 80vw;
+    margin: 5vh auto 0 auto;
+    border-radius: 20px;
+    display: flex;
+}
+
+.user-info {
+    width: 45%;
+    margin: 1.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.user-part {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-name {
+    margin: 0 0 0 2%;
+}
+
+.learning-progress {
+    margin: 2% 0 0 2%;
+}
+
+.progress {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.sort-progress, .path-progress {
+    margin: 2% 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sort-progress-img, .path-progress-img {
+    height: 8rem;
+    width: 10rem;
+}
+
+.algo-name {
+    text-align: center;
+    font-size: 20px !important;
+}
+
+.user-stats {
+    margin: 1.5%;
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 2;
+}
+
+.circle {
+    position: relative;
+    height: 90px;
+    width: 90px;
+    border-radius: 80px;
+    background-color: var(--white-green);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.circles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.stats-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    color: var(--white-green);
+    border-top: 4px solid var(--white-green);
+    border-bottom: 4px solid var(--white-green);
+    height: 35%;
+}
+
+.stats-text {
+    font-size: 28px !important;
+    font-weight: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.achievements {
+    text-align: center;
+}
+
+.wins-yellow {
+    font-size: 28px !important;
+    color: var(--yellow);
+}
+
+.losses-red {
+    font-size: 28px !important;
+    color: var(--red);
+}
+
+.created {
+    text-align: right;
+    color:var(--white)
+}
+
+.changeMe {
+    position: relative;
+    display: inline-block;
+    width: 8rem;
+    height: 4rem;
+    cursor: pointer;
+    margin: 0 0 0 10px;
+}
+
+.input-body, .input-button {
+    height: 50px;
+    width: 250px;
+    border: 0;
+    border-bottom: 1px solid var(--white-green);
+    background-color: transparent;
+    color: var(--white-green);
+    margin: 6px;
+}
+
+.input-button {
+    width: 50px;
+    border: 0;
+    padding: 0;
+    outline: none;
+    color:var(--yellow);
+    font-size: large;
+}
+
+.input-body{
+    font-size: large;
+    width:50%;
+}
+.progress-number{
+    font-size: large !important;
+}
+
+.gameStatsText{
+    font-size: large !important;
+}
+
+*:focus {
+    outline: none;
+    background-color: transparent;
+}

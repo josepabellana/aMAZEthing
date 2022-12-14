@@ -1,0 +1,36 @@
+.vertex{
+    position: relative;
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+    background-color: var(--main-green);
+    z-index:20;
+}
+
+.selectedEndVertex{
+    background-color: var(--red);
+}
+
+.edge{
+    position:absolute;
+    width:15px;
+    height: 5px;
+    border-radius: 3px;
+    background-color: var(--sand);
+    
+}
+.vertical{
+    position:absolute;
+    transform: rotate(90deg);
+    background-color: var(--sand);
+}
+
+.right-connection{
+    left: 90%;
+    top: 40%
+}
+
+.bottom-connection{
+    left: 15%;
+    top: 110%;
+}

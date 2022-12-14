@@ -4,15 +4,31 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon ./build/index",
+    "build": "tsc --watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/express-jwt": "^7.4.2",
+    "@types/multer": "^1.4.7",
+    "cypress": "^11.2.0",
     "typescript": "^4.9.3"
   },
   "dependencies": {
+    "@types/auth0": "^2.35.7",
     "@types/express": "^4.17.14",
-    "express": "^4.18.2"
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-jwt": "^7.7.7",
+    "express-oauth2-jwt-bearer": "^1.2.0",
+    "helmet": "^6.0.0",
+    "jwks-rsa": "^3.0.0",
+    "mongo": "^0.1.0",
+    "mongoose": "^6.7.3",
+    "nocache": "^3.0.4",
+    "nodemon": "^2.0.20",
+    "socket.io": "^4.5.4"
   }
 }

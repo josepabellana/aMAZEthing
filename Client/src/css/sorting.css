@@ -1,0 +1,144 @@
+*{
+  box-sizing: border-box;
+}
+
+.code{
+  display: inline-block;
+  vertical-align: top;
+  color: var(--main-green) ;
+  font-weight: bold;
+}
+.indent1{
+  padding-left: 1em;;
+}
+
+.indent2{
+  padding-left: 2em;
+}
+
+.indent3{
+  padding-left: 3em;
+}
+
+.whole-page-wrapper {
+  background-color: var(--white);
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: scroll;
+}
+
+.lesson-wrapper-pseudo{
+  min-width: 70vw;
+  width: 900px;
+  margin: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pseudoBlock{
+  width: 50%;
+  height: 100%;
+}
+
+
+.lesson-wrapper, .lesson-wrapper-2 {
+  border-radius: 20px;
+  min-width: 70vw;
+  width: 900px;
+  min-height: 491px;
+  
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  cursor: default;
+
+}
+
+.lesson-wrapper h1 {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+.lesson-wrapper p {
+  font-size: 22px;
+  text-align: left;
+  color: var(--white);
+  margin-bottom: 15px;
+}
+
+
+
+.array {
+  display:flex;
+  align-items: flex-end;
+  max-width: fit-content;
+}
+
+.clickSort{
+ color: var(--purple);
+}
+
+.clickSort-clicked {
+  color: var(--white);
+}
+
+.array-el {
+  flex: 1;
+  margin: 2px;
+  height: 10px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+.visualizing {
+  color: var(--white-green)
+}
+
+.visualizing:hover {
+  cursor: default;
+  color: var(--white-green);
+}
+
+.merge-visual-height .array {
+  height: 300px
+}
+
+.quick-sort-visual-height {
+  width: 1150px;
+}
+
+.quick-sort-visual-height .array {
+  height: 300px;
+}
+
+@media only screen and (max-width: 949px) {
+  .lesson-wrapper-2 {
+    width: 99%;
+  }
+
+   /* TODO started here. didn't finish  */
+
+  .array {
+    width: 90vw;
+    margin: 0px;
+  }
+
+  .array-el {
+    margin: 1px;
+    height: 10px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: bolder;
+  }
+}
+
+

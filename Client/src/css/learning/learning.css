@@ -1,0 +1,62 @@
+.initial-view {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: var(--main-green);
+  text-align: center;
+  font-size: 30px;
+  color: var(--white-green);
+}
+
+.scroll-learning {
+  background-color: transparent;
+  border: 0;
+}
+
+.scroll-learning h3 {
+  color: var(--yellow);
+  font-size: 30px;
+}
+
+.explanation {
+  display: flex;
+  flex-direction: column;
+}
+
+.sorting-algo, .path-algo {
+  margin: 2vh 10vw;
+  display: flex;
+  justify-content: flex-start;
+
+  flex-direction: column;
+  text-align: left;
+}
+
+.explanation-title {
+  font-size: 50px;
+  margin: 1vh 0;
+  color: var(--purple);
+}
+
+.explanation-text {
+  color: var(--dark-brown) !important;
+  font-size: 24px !important;
+  font-weight: 700;
+  padding-top: 0 !important;
+}
+.centered-text {
+  text-align: center;
+}
+
+.disable-horizontal-scroll {
+  overflow: hidden;
+}
+
+.title-small {
+  font-size: 50px;
+}
+
+.curve-small {
+margin: -150px 0;
+}

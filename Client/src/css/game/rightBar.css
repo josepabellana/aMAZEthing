@@ -1,0 +1,82 @@
+.right-bar {
+  width: 10vw;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: max-content;
+  flex-direction: column;
+  margin-top: -1.5vh;
+  min-width: 150px;
+}
+
+.store-button {
+  width: 94%;
+  background-color: transparent;
+  border: none;
+  border-radius: 0 0 15px 15px;
+}
+
+.shopSVG {
+  width: 80%;
+  width: 120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.your-minions-list {
+  height: 76vh;
+  overflow-y: auto;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 1vh
+}
+
+.right-bar-name {
+  font-size: 30px;
+  text-align: center;
+}
+
+.your-minion-button {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  border: 3px solid transparent;
+  border-radius: 15px;
+}
+
+.your-minion-button:hover {
+  border: 3px solid var(--yellow);
+  border-radius: 15px;
+}
+
+.cross-size {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* width */
+.your-minions-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+.your-minions-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--white-green);
+  border-radius: 5px;
+}
+
+/* Handle */
+.your-minions-list::-webkit-scrollbar-thumb {
+  background: var(--white-green);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.your-minions-list::-webkit-scrollbar-thumb:hover {
+  background: var(--yellow);
+}

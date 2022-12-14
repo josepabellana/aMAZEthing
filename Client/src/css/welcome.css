@@ -1,0 +1,46 @@
+.welcome-page {
+  background-color: var(--main-green);
+  width: 100vw;
+  height: 90vh;
+  font-size: 100px;
+  position: fixed;
+}
+
+.welcome-page, .medium, .small {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.welcome {
+  color: var(--dark-green);
+  padding: 0px 40px;
+}
+
+.options {
+  color: var(--white-green);
+  padding: 0px 40px;
+  font-size: 150px;
+  background-color: transparent;
+  border: 0;
+}
+
+.welcome-medium, .welcome-small {
+  color: var(--dark-green);
+  font-size: 170px;
+  padding: 0px 40px 40px;
+}
+
+.options-medium, .options-small {
+  color: var(--white-green);
+  padding: 0px 40px;
+  font-size: 150px;
+  background-color: transparent;
+  border: 0;
+}
+
+.welcome-small, .options-small {
+  padding: 0px 40px;
+  font-size: 100px;
+}

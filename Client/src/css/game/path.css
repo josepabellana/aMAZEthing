@@ -1,0 +1,19 @@
+.path {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: inherit;
+  width: inherit;
+  opacity: 0.3;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.THOUGHTPROCESS {
+  background-color: var(--purple);
+  opacity: 0.4;
+}
+
+.PATH {
+  background-color: var(--yellow);
+}

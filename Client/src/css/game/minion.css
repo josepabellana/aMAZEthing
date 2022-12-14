@@ -1,0 +1,59 @@
+.minion {
+  position: absolute;
+  z-index: 10;
+  /* background-image: url('../assets/minions/squirrel.svg'); */
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  transition: 200ms;
+  transform: rotateY('0deg') rotateZ('0deg');
+  animation: none;
+}
+
+.p1-color {
+  fill: var(--yellow);
+}
+
+.p2-color {
+  fill: var(--red);
+}
+
+.player-color-shadow-svg {
+  fill: rgb(142, 92, 0);
+}
+
+.minion-svg-border {
+  fill: black;
+}
+
+.minionR {
+  transform: rotate(0deg);
+}
+
+.minionL {
+  transform: scaleX(-1);
+}
+
+.minionU {
+  transform: rotate(90deg);
+}
+
+.minionD {
+  transform: rotate(-90deg);
+}
+
+.minionInTower {
+  animation: enterTower linear 1s forwards;
+}
+
+@keyframes enterTower {
+  0% {
+    transition: 1s;
+    transform: scale(1);
+    z-index: 8;
+  }
+  100% {
+    transform: scale(0);
+    z-index: 10;
+  }
+}

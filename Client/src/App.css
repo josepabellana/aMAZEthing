@@ -1,41 +1,45 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+  line-height: 1.5;
+  scroll-behavior: smooth;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+:root {
+  --main-grey: rgb(126, 134, 133);
+  --light-grey: #dbdbdb;
+  --even-lighter-grey: #e8e8e8;
+  --sort-green: #2c5d44;
+  --main-green: #1B432E;
+  --main-green-transparent: #1B432E77;
+  --dark-green: #043A25;
+  --white-green: #B4C6BC;
+  --white-green-hover: #96B0A2;
+  --red: #c1121f;
+  --yellow: #ffb703;
+  --dark-brown: #3C2923;
+  --white: #ffff;
+  --purple: #323356;
+  --sand: #E6CCB2;
+  --black-transparent: #00000077;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+body {
+  background-color: var(--main-green);
 }
 
-.card {
-  padding: 2em;
+h1, h2, h3, h4, button {
+  font-family: 'Staatliches', cursive;
+  font-weight: 100;
+  color: var( --white-green);
 }
 
-.read-the-docs {
-  color: #888;
+button:hover{
+  color: var(--yellow)
+}
+
+.outlet {
+  position: relative;
+  top: 10vh
 }

@@ -1,0 +1,79 @@
+.playContainer{
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    background-color: var(--white);
+    flex-direction: column;
+}
+
+.formContainer{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.visualize-container{
+    width: 94%;
+    padding-left: 6%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+
+
+.sorting-label{
+    text-align:start;
+    font-weight: bolder;
+}
+
+.disabled{
+    color: var(--main-grey);
+}
+
+.disabled:hover{
+    cursor: default;
+    color: var(--main-grey);
+}
+
+
+
+.ASCEND{
+    min-width: 200px;
+}
+
+input[type='range'] {
+	height: 7px;
+    width: 150px;
+	border-radius: 5px;
+
+}
+
+
+.nice-select {
+    background-color: var(--white);
+    border-radius: 5px;
+    border: solid 1px var(--even-lighter-grey);
+    box-sizing: border-box;
+    clear: both;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bolder;
+    height: 42px;
+    line-height: 40px;
+    padding-right: 10px;
+    outline: none;
+    text-align: left !important;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    width: auto; }
+.nice-select:hover {
+      border-color: var(--light-grey); }
+.nice-select:active, .nice-select.open, .nice-select:focus {
+      border-color: var(--main-grey); }
+

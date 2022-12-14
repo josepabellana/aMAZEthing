@@ -1,0 +1,82 @@
+
+
+.gameOver {
+  --winOrLose: var(--yellow);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: var(--main-green-transparent);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gameOver.lose {
+  --winOrLose: var(--red);
+}
+
+.gameOverModal {
+  padding: 20px;
+  width: 25vw;
+  min-width: 300px;
+  background-color: var(--purple);
+  border: 8px var(--winOrLose) solid;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gameOverModal .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 3em;
+  color: var(--winOrLose);
+}
+
+.header h2 {
+  font-size: 2em;
+}
+
+.gameOverModal .player {
+  margin-top: 20px;
+  width: 100%;
+  border-top: 2px grey solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player .stats {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+}
+
+.stats .value {
+  color: var(--winOrLose);
+}
+
+.win {
+  color: var(--yellow);
+}
+
+.loser {
+  color: var(--red);
+}
+
+.game-over-button {
+  margin-top: 25px;
+  background-color: var(--purple);
+  border: 4px solid var(--winOrLose);
+  border-radius: 15px;
+  width: 7vw;
+  height: 5vh;
+  font-size: 21px;
+}

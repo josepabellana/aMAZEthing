@@ -1,0 +1,21 @@
+
+.p1FlagColor {
+  fill: var(--yellow);
+}
+
+.p2FlagColor {
+  fill: var(--red);
+}
+
+text {
+  font-family: Staatliches;
+}
+
+.p1FlagColor text {
+  color: black;
+}
+
+#text-reverse-yep {
+  transform: scaleX(-1) translateX(-540px);
+}
+

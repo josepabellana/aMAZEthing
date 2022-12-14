@@ -1,0 +1,81 @@
+.navbar {
+  background-color: var(--main-green);
+  width: 100vw;
+  height: 10vh;
+  font-size: 40px;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  /* I know it's a crazy number */
+  z-index: 100; 
+}
+
+.navbar-start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 40vw;
+}
+
+.navbar-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 40vw;
+}
+
+.button {
+  background-color: transparent;
+  border: 0;
+  font-size: 40px;
+  margin: 40px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.container {
+  display: inline-block;
+  cursor: pointer;
+  margin: 40px;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 40px;
+  height: 5px;
+  background-color: var(--white-green);
+  margin: 5px 0;
+  transition: 0.5s;
+}
+
+.bar1.active {
+  transform: translate(0, 10px) rotate(-45deg);
+}
+
+.bar2.active {
+  opacity: 0;
+}
+
+.bar3.active {
+  transform: translate(0, -10px) rotate(45deg);
+}
+
+.modal-body {
+  z-index: -1;
+  height: 90vh;
+  width: 100vw;
+  position: absolute;
+  margin: 10vh 0 0 0;
+  background-color: var(--main-green);
+  display: flex;
+  flex-direction: column;
+}
+
+.open-false {
+  display: none;
+}
+
+.open-true {
+  display: absolute;
+}
