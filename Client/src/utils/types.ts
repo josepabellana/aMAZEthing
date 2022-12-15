@@ -15,7 +15,8 @@ export interface minionType {
   sortingAlgo: 'bubble' | 'insertion' | 'selection' | 'merge' | 'quick';
   sortingSpeed: number;
   movementSpeed: number;
-  type: 'Squirrel' | 'Badger' | 'Hare' | 'Deer' | 'Koala' | 'Bear'
+  type: 'Squirrel' | 'Badger' | 'Hare' | 'Deer' | 'Koala' | 'Bear';
+  cost: number
 }
 
 export interface MazeTileType {
@@ -43,47 +44,53 @@ export interface animal {
   sortingAlgo: 'bubble' | 'insertion' | 'selection' | 'merge' | 'quick';
   sortingSpeed: number;
   movementSpeed: number;
-  type: 'Squirrel' | 'Badger' | 'Hare' | 'Deer' | 'Koala' | 'Bear'
+  type: 'Squirrel' | 'Badger' | 'Hare' | 'Deer' | 'Koala' | 'Bear';
+  cost: number;
 }
 
 export const squirrel: animal = {
   pathFindingAlgo: 'dfs',
-  sortingAlgo: 'bubble',
-  sortingSpeed: 300,
+  sortingAlgo: 'quick',
+  sortingSpeed: 100,
   movementSpeed: 300,
-  type: 'Squirrel'
+  type: 'Squirrel',
+  cost: 300,
 }
 
 export const badger: animal = {
   pathFindingAlgo: 'bfs',
-  sortingAlgo: 'selection',
+  sortingAlgo: 'bubble',
   sortingSpeed: 300,
   movementSpeed: 500,
-  type: 'Badger'
+  type: 'Badger',
+  cost: 300,
 }
 
 export const hare: animal = {
-  pathFindingAlgo: 'dijk',
+  pathFindingAlgo: 'a*',
   sortingAlgo: 'insertion',
   sortingSpeed: 300,
   movementSpeed: 300,
-  type: 'Hare'
+  type: 'Hare',
+  cost: 500,
 }
 
 export const deer: animal = {
-  pathFindingAlgo: 'a*',
+  pathFindingAlgo: 'dijk',
   sortingAlgo: 'merge',
   sortingSpeed: 50,
-  movementSpeed: 400,
-  type: 'Deer'
+  movementSpeed: 350,
+  type: 'Deer',
+  cost: 500
 }
 
 export const koala: animal = {
-  pathFindingAlgo: 'a*',
+  pathFindingAlgo: 'bfs',
   sortingAlgo: 'quick',
   sortingSpeed: 50,
   movementSpeed: 350,
-  type: 'Koala'
+  type: 'Koala',
+  cost: 550,
 }
 
 export const bear: animal = {
@@ -92,5 +99,6 @@ export const bear: animal = {
   sortingSpeed: 50,
   type: 'Bear',
   movementSpeed: 300,
+  cost: 600
 }
 

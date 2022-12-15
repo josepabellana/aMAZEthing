@@ -13,12 +13,9 @@
 
 .flags {
   margin-top: 50px;
-  width: 8vw;
 }
 
 .p1Flag, .p2Flag {
-  width: 4.8vw;
-  min-width: 92px;
   position: relative;
 }
 
@@ -27,27 +24,11 @@
 }
 
 .p2Flag {
-  left: 55px;
-  top: -10px;
+  top: -3vh;
 }
 
 .p2Flag {
   transform: scaleX(-1);
-}
-
-.p1Name, .p2Name {
-  font-size: 24px;
-  position: absolute;
-}
-
-.p1Name {
-  top: 15px;
-  left: 10px;
-}
-
-.p2Name {
-  top: 100px;
-  left: 55px;
 }
 
 .score-you, .score-opponent {
@@ -153,7 +134,8 @@
 
 .zoom-buttons {
   display: flex;
-  margin: auto auto 20px auto
+  margin: auto auto 20px auto;
+  width: 70%;
 }
 
 .zoom-in-svg, .zoom-out-svg {
@@ -163,7 +145,7 @@
 
 .zoomInButton, .zoomOutButton {
   cursor: pointer;
-  width: 35px;
+  width: 100%;
 }
 
 .zoomInButton {
@@ -172,4 +154,8 @@
 
 .zoomOutButton {
   transform: rotate(90deg);
+}
+
+.left-bar-tower-alignment {
+  font-size: 28px;
 }

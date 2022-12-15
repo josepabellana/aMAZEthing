@@ -15,6 +15,7 @@ function MazeTile({value, classes, path, generated}: {
   const {width, boxSize} = useAppSelector(state => state.game)
 
   function setCurrentTileHelper(value: number) {
+    console.log(value);
     dispatch(updateCurrentTile({
       xPos: value%width,
       yPos: Math.floor(value / width)
@@ -27,7 +28,7 @@ function MazeTile({value, classes, path, generated}: {
         dispatch(updateCurrentMinion(null));
         dispatch(updateCurrentTile(null));
         dispatch(updateCurrentTower(null));
-      }} className={`mazeTile ${classes.join(' ')} ${value} ${generated && 'showNone'}`} style={{height: `${boxSize}px`, width: `${boxSize}px`}}>
+      }} className={`mazeTile ${classes.join(' ')} ${value} ${generated ? 'showNone' : ''}`} style={{height: `${boxSize}px`, width: `${boxSize}px`}}>
         {path && <Path thoughtProcess={path}/>}
       </div>
     </>

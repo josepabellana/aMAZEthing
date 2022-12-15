@@ -1,20 +1,33 @@
+import { getWeightPositions } from './getWeightPositions';
 import { Graph, value } from './graph';
 
-export function generateConnectedGraph(width: number, height: number) {
+export function generateConnectedGraph(width: number, height: number, weightedGraph:boolean = false, maxWeight = 4, minWeight = 0) {
   const nodeNum = width * height;
-
+  
   const connectedGraph = new Graph();
   for (let i = 0; i < nodeNum; i++) {
     connectedGraph.addVertex(i);
   }
-
-  for (let i = 0; i < nodeNum; i++) {
-    if (i > width) connectedGraph.addEdge(i, i - width);
-    if (i < nodeNum - width) connectedGraph.addEdge(i, i + width);
-    if (i % width > 0) connectedGraph.addEdge(i, i - 1);
-    if (i % width < width - 1) connectedGraph.addEdge(i, i + 1);
+  if(!weightedGraph){
+    for (let i = 0; i < nodeNum; i++) {
+      if (i > width) connectedGraph.addEdge(i, i - width);
+      if (i < nodeNum - width) connectedGraph.addEdge(i, i + width);
+      if (i%width > 0) connectedGraph.addEdge(i, i - 1);
+      if (i%width < width - 1) connectedGraph.addEdge(i, i + 1);
+    }
+  } else {
+    let rand:number;
+    for (let i = 0; i < nodeNum; i++) {
+      rand = Math.floor(Math.random()*(maxWeight - minWeight) + minWeight);
+      if (i > width && !connectedGraph.getEdgeValue(i, i-width) && rand) connectedGraph.addEdge(i, i - width,rand);
+      rand = Math.floor(Math.random()*(maxWeight - minWeight) + minWeight);
+      if (i < nodeNum - width && !connectedGraph.getEdgeValue(i, i+width) && rand) connectedGraph.addEdge(i, i + width,rand);
+      rand = Math.floor(Math.random()*(maxWeight - minWeight) + minWeight);
+      if (i%width > 0 && !connectedGraph.getEdgeValue(i, i-1) && rand) connectedGraph.addEdge(i, i - 1,rand);
+      rand = Math.floor(Math.random()*(maxWeight - minWeight) + minWeight);
+      if (i%width < width - 1 && !connectedGraph.getEdgeValue(i, i+1) && rand) connectedGraph.addEdge(i, i + 1,rand);
+    }
   }
-
   return connectedGraph;
 }
 
@@ -33,12 +46,15 @@ function addTowers(width: number, height: number, graph: Graph) {
   const nTowers = 6;
   // let radius = Math.floor(Math.min(width, height)/3);
   for (let i = 0; i < nTowers; i++) {
+    const secondaryRadiusWidth = Math.floor(Math.random() * ((width/6) - 5));
+    const secondaryRadiusHeight = Math.floor(Math.random() * ((height/6) - 5));
+    const secondaryAngle = 2 * Math.PI * Math.random();
     towers.push(
-      [midW +
-        Math.floor((width / 3) * Math.sin((2 * i * Math.PI) / nTowers)) +
+      [(midW +
+        Math.floor((width / 3) * Math.sin((2 * i * Math.PI) / nTowers) + secondaryRadiusWidth*Math.sin(secondaryAngle))) +
         width *
           (midH +
-            Math.floor((height / 3) * Math.cos((2 * i * Math.PI) / nTowers))), generateRandomNumbers()]
+            Math.floor((height / 3) * Math.cos((2 * i * Math.PI) / nTowers) + secondaryRadiusHeight*Math.cos(secondaryAngle))), generateRandomNumbers()]
     );
   }
   for (let tower of towers) {
@@ -81,6 +97,8 @@ function addBases(width: number, height: number, graph: Graph) {
 export function generateMaze(
   width: number,
   height: number,
+  weighted: boolean = false,
+  chanceWeighted: number = 0,
   graph: Graph | false = false
 ) {
   if (graph === false) {
@@ -103,8 +121,9 @@ export function generateMaze(
       let neighbor = neighbors[
         Math.floor(Math.random() * neighbors.length)
       ] as number;
-      edges.push([i, neighbor, 1]);
-      edges.push([neighbor, i, 1]);
+      let rand = weighted && Math.floor(Math.random() * chanceWeighted) === 0 ? 5 : 1;
+      edges.push([i, neighbor, rand]);
+      edges.push([neighbor, i, rand]);
       if (i - neighbor === 1) {
         if (classes[i]) {
           if (!classes[i].includes('l')) classes[i].push('l');
@@ -158,6 +177,7 @@ export function generateMaze(
       i = Math.floor(Math.random() * nodeNum);
     }
     if (i > width) {
+      graph.removeEdge(i, i-width);
       graph.addEdge(i, i - width);
       if (classes[i]) {
         if (!classes[i].includes('t')) classes[i].push('t');
@@ -167,6 +187,7 @@ export function generateMaze(
       } else classes[i - width] = ['b'];
     }
     if (i < nodeNum - width) {
+      graph.removeEdge(i, i + width);
       graph.addEdge(i, i + width);
       if (classes[i]) {
         if (!classes[i].includes('b')) classes[i].push('b');
@@ -176,6 +197,7 @@ export function generateMaze(
       } else classes[i + width] = ['t'];
     }
     if (i % width > 0) {
+      graph.removeEdge(i, i - 1);
       graph.addEdge(i, i - 1);
       if (classes[i]) {
         if (!classes[i].includes('l')) classes[i].push('l');
@@ -185,6 +207,7 @@ export function generateMaze(
       } else classes[i - 1] = ['r'];
     }
     if (i % width < width - 1) {
+      graph.removeEdge(i, i + 1);
       graph.addEdge(i, i + 1);
       if (classes[i]) {
         if (!classes[i].includes('r')) classes[i].push('r');
@@ -194,11 +217,13 @@ export function generateMaze(
       } else classes[i + 1] = ['l'];
     }
   }
+  const weightPositions = getWeightPositions(graph, width);
   return {
     graph,
     visited,
     classes,
     towers,
+    weightPositions
   };
 }
 
@@ -210,4 +235,5 @@ export interface MazeType {
       [key: number]: ("b" | "t" | "r" | "l")[];
   };
   towers: [number, number[]][];
+  weightPositions: {[key: string]: { xPos: number; yPos: number}}
 }

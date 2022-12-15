@@ -10,7 +10,7 @@ function Tower({ tower }: {
 } ) {
 
   const dispatch = useAppDispatch();
-  const { boxSize, width, height } = useAppSelector(state => state.game);
+  const { boxSize, width, height, currentTower } = useAppSelector(state => state.game);
 
   function handleContextMenu() {
     if (tower.minion === null) {
@@ -30,14 +30,14 @@ function Tower({ tower }: {
   }
 
   return (
-    <div id={`${tower.id}`} style={{width: `${boxSize*3}px`, top: `${(tower.yPos-2)*boxSize}px`, left: `${(tower.xPos-1)*boxSize}px`}} className='tower' onContextMenu={handleContextMenu} onClick={handleClick}>
+    <div id={`${tower.id}`} style={{width: `${boxSize*3}px`, top: `${(tower.yPos-2)*boxSize}px`, left: `${(tower.xPos-1)*boxSize}px`}} className={`tower ${currentTower && currentTower!.id === tower.id ? 'selected' : ''}`} onContextMenu={handleContextMenu} onClick={handleClick}>
       <TowerSVG playerClass={
                   tower.minion !== null? 'contestedTower' :
                   tower.alignment === 'p1' ? 'p1Tower' :
                   tower.alignment === 'p2' ? 'p2Tower' :
                   'neutralTower'}
       />
-      <TowerPopup boxSize={boxSize} tower={tower} width={width} height={height}/>
+      <TowerPopup tower={tower} width={width} height={height}/>
     </div>
   )
 }

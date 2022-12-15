@@ -4,6 +4,9 @@ import { bubbleSortAlgo, generateArray } from "../../utils/sorting-algo";
 import Visualization from "./visualization";
 import { bubbleSortVisual } from "../../utils/sorting-helper-visual";
 import { useAlgo, useAppSelector } from "../../features/hooks";
+import Pagination from "../learning/pagination";
+import MapKeys from "./sortStats";
+import SortSteps from "./sortSteps";
 
 export default function BubbleLesson() {
   const user = useAppSelector((state) => state.user);
@@ -11,20 +14,36 @@ export default function BubbleLesson() {
   const [clicked, setClicked] = useState(false);
   const [animations, setAnimations] = useState([[1]]);
   const [isSorted, setIsSorted] = useState(false);
+  let steps = [
+    "Start from the first Index, we check the next element",
+    "If the first element is greater than the second",
+    "They are swapped",
+    "Repeat for subsequent indexes",
+    "The above process goes on until all sorted",
+  ];
 
-  const WIDTH = 35;
+  let psuedoCode = [
+    "bubbleSort(array)",
+    "for i <- 1 to indexOfLastUnsortedElement-1",
+    " if leftElement > rightElement",
+    "swap leftElement and rightElement",
+    "end bubbleSort",
+  ];
+
+  const WIDTH = 27;
   const MIN_VAL = 7;
   const MAX_VAL = 50;
   const NUM_BARS = 20;
-  const DELAY = 5;
-  const PADTOP = 10;
-  const MARGIN = 3;
+  const DELAY = 100;
+  const PADTOP = 3;
+  const MARGIN = 1.5;
   const HEIGHT = 5;
+  const FONTSIZE = 15;
 
   const paragraphs = {
     sortName: "Bubble sort",
     firstP:
-      "Bubble Sort is the simplest sorting algorithm that swaps two elements if they are in the wrong order. Starting on one side, it compares adjacent items and keep “bubbling” the larger one to the other side.",
+      "Bubble Sort swaps adjacent elements if they are in the wrong order, 'bubbling' up the list.",
   };
 
   useEffect(() => {
@@ -43,82 +62,78 @@ export default function BubbleLesson() {
   }
 
   return (
-    <div className="whole-page-wrapper">
-      <div className="sorting-algo">
-        <h1 className="explanation-title">{paragraphs.sortName}</h1>
-        <p className="explanation-text">{paragraphs.firstP}</p>
-
-        <div className="lesson-wrapper-pseudo">
-          <div className="pseudoBlock">
-            <h1 className="lesson-h1">{paragraphs.sortName}</h1>
-            <code>
-              <span className="code indent0 "> bubbleSort(array) </span> <br />
-              <span className="code indent1">
-                {" "}
-                for i &gt;= indexOfLastUnsortedElement-1{" "}
-              </span>{" "}
-              <br />
-              <span className="code indent2">
-                {" "}
-                if leftElement &gt; rightElement{" "}
-              </span>{" "}
-              <br />
-              <span className="code indent3">
-                {" "}
-                swap leftElement and rightElement
-              </span>{" "}
-              <br />
-              <span className="code ">end bubbleSort </span>
-            </code>
-          </div>
-          <div className="pseudoExplain"></div>
+    <Pagination
+      clicked={clicked}
+      leftName={"Learning"}
+      rightName={"Insertion"}
+      leftLink={"learning/"}
+      rightLink={"learning/insertionLesson"}
+    >
+      <div className="whole-page-wrapper">
+        <div className="sorting-algo">
+          <h1 className="explanation-title">{paragraphs.sortName}</h1>
+          <p className="explanation-text">{paragraphs.firstP}</p>
         </div>
 
         <div className="lesson-wrapper-2">
-          <div>
-            <button
-              className={
-                clicked ? "button disabled clickSort" : "button clickSort"
-              }
-              disabled={clicked ? true : false}
-              onClick={() => initArr()}
-            >
-              new array
-            </button>
+          <div className="visualRow">
+            <MapKeys animations={animations}></MapKeys>
 
-            <button
-              className={
-                clicked && !isSorted
-                  ? "button disabled clickSort"
-                  : isSorted
-                  ? "button disabled clickSort"
-                  : "button clickSort"
-              }
-              disabled={!isSorted && clicked ? true : isSorted ? true : false}
-              onClick={() => {
-                setClicked(true);
-              }}
-            >
-              visualize
-            </button>
+            <div className="visual-arrayAndButtons">
+              <div className="visual-buttons">
+              <button
+                className={
+                  clicked ? "button disabled clickSort" : "button clickSort"
+                }
+                disabled={clicked ? true : false}
+                onClick={() => initArr()}
+              >
+                new array
+              </button>
+
+              <button
+                className={
+                  clicked && !isSorted
+                    ? "button disabled clickSort"
+                    : isSorted
+                    ? "button disabled clickSort"
+                    : "button clickSort"
+                }
+                disabled={!isSorted && clicked ? true : isSorted ? true : false}
+                onClick={() => {
+                  setClicked(true);
+                }}
+              >
+                visualize
+              </button>
+              </div>
+             
+              <div className="visual-array">
+              <Visualization
+                width={WIDTH}
+                delay={DELAY}
+                margin={MARGIN}
+                paddingTop={PADTOP}
+                array={array}
+                height={HEIGHT}
+                fontColor={"white"}
+                key={array as any}
+                animations={animations}
+                clicked={clicked}
+                sortingAlgo={bubbleSortVisual}
+                setClicked={setClicked}
+                setIsSorted={setIsSorted}
+                fontSize={FONTSIZE}
+                tower={undefined}
+                isSorted={false}
+              />
+              </div>
+            </div>
+
+            <SortSteps steps={steps}></SortSteps>
           </div>
-          <Visualization
-            width={WIDTH}
-            delay={DELAY}
-            margin={MARGIN}
-            paddingTop={PADTOP}
-            array={array}
-            height={HEIGHT}
-            fontColor={"white"}
-            key={array as any}
-            animations={animations}
-            clicked={clicked}
-            sortingAlgo={bubbleSortVisual}
-            setClicked={setClicked}
-            setIsSorted={setIsSorted}
-          />
         </div>
       </div>
-    </div>
+    </Pagination>
   );
 }

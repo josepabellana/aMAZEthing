@@ -1,129 +1,124 @@
-import { useEffect, useState } from "react";
-import "../../css/pathFinding.css";
-import { generateConnectedGraph } from "../../utils/maze";
-import { value } from "../../utils/graph";
-import GraphVertex from "./graphVertex";
-import { delay } from "../../utils/functionalities";
+import { useEffect, useState } from 'react';
+import '../../css/pathFinding.css';
+import { generateConnectedGraph } from '../../utils/maze';
+import { value } from '../../utils/graph';
+import GraphVertex from './graphVertex';
+import { showPath } from '../../utils/functionalities';
+import Pagination from '../learning/pagination';
+import MapKeys from './map-keys';
+import StepsPath from './stepsPath';
 
 function DijkstraLesson() {
+  const [stats, setStats] = useState({ visited: 0, path: 0 });
   const [graph, setGraph] = useState<any>();
+  const [graphNumber, setGraphNumber] = useState<number>(0);
   const [clicked, setClicked] = useState(false);
-  const [width] = useState(15);
+  const [width] = useState(10);
   const [end, setEnd] = useState<any>(width * width - 1);
-
-  let paragraphs = {
-    sortName: "Dijkstra algorithm",
-    firstP:
-      "This algorithm uses the weights of the edges to find the path that minimizes the total distance (weight) between the source node and all other nodes.",
-    secondP:
-      "(weighted) the father of pathfinding algorithms; guarantees the shortest path"
-  };
+  let steps = [
+    'Start at a node',
+    'Assign neighbors a \'cost\' to visit',
+    'Select the neighbor with the lowest cost',
+    'Repeat until goal reached',
+  ];
 
   useEffect(() => {
-    const graph = generateConnectedGraph(width, width, true);
-    setGraph(graph);
+    newGraph();
   }, []);
 
   function newGraph() {
     const newgraph = generateConnectedGraph(width, width, true);
     setGraph(newgraph);
+    setClicked(false);
+    setGraphNumber(prev => prev + 1);
+    setStats({ visited: 0, path: 0 });
   }
 
   async function dijkstra() {
-    const DIJKVisualpaths = graph.findPath(0, end, "vdijk");
-    console.log("PATH", DIJKVisualpaths);
+    const DIJKVisualpaths = graph.findPath(0, end, 'vdijk');
+    console.log('PATH', DIJKVisualpaths);
     if (DIJKVisualpaths) {
+      setStats({
+        visited: DIJKVisualpaths.visited.length,
+        path: DIJKVisualpaths.path.length,
+      });
       let path: any = Array.from(DIJKVisualpaths.visited);
-      await showPath(path, true);
+      await showPath(path, true, `${graphNumber}dijk`);
       path = Array.from(DIJKVisualpaths.path);
-      await showPath(path);
-    }
-  }
-
-  async function showPath(path: number[], visited: boolean = false) {
-    for (let i = 0; i < path.length; i++) {
-      await delay(10);
-      document.getElementById(`${path[i]}`)!.style.backgroundColor = visited
-        ? "var(--sand)"
-        : "var(--yellow)";
-      await delay(10);
-      if (i + 1 !== path.length) {
-        if (
-          document.getElementById(
-            `${path[i]},${path[i + 1]}-${path[i + 1]},${path[i]}`
-          ) ||
-          document.getElementById(
-            `${path[i + 1]},${path[i]}-${path[i]},${path[i + 1]}`
-          )
-        ) {
-          if (path[i] < path[i + 1])
-            document.getElementById(
-              `${path[i]},${path[i + 1]}-${path[i + 1]},${path[i]}`
-            )!.style.backgroundColor = visited
-              ? "var(--sand)"
-              : "var(--yellow)";
-          else
-            document.getElementById(
-              `${path[i + 1]},${path[i]}-${path[i]},${path[i + 1]}`
-            )!.style.backgroundColor = visited
-              ? "var(--sand)"
-              : "var(--yellow)";
-        }
-      }
+      await showPath(path, false, `${graphNumber}dijk`);
     }
   }
 
   return (
-    <div className="whole-page-wrapper">
-      <div className="sorting-algo">
-        <h1 className="explanation-title">{paragraphs.sortName}</h1>
-        <p className="explanation-text">{paragraphs.firstP}</p>
-        <p className="explanation-text centered-text">{paragraphs.secondP}</p>
-      </div>
-      <div className="buttons-pos">
-        <button 
-        className={clicked ? "button disabled": "button"} 
-        disabled={clicked} 
-        onClick={() => {
-          setClicked(true);
-          newGraph()
-          setClicked(false);
-          }}>
-          NEW Graph{" "}
-        </button>
-        <button 
-        className={clicked ? "button disabled": "button"}  
-        disabled={clicked}
-        onClick={() => {
-          setClicked(true);
-          dijkstra()
-          setClicked(false);
-          }}>
-          Visualize Dijkstra
-        </button>
-      </div>
-      <div className="lesson-wrapper-2">
-        <div id="myCanvas">
-          <div
-            className="graph-vertices"
-            style={{ gridTemplateColumns: `repeat(${width}, 1fr)` }}
-          >
-            {graph &&
-              graph.vertices.map((vertex: value) => (
-                <GraphVertex
-                  key={Math.random()}
-                  width={width}
-                  vertex={vertex}
-                  edges={graph.edges.filter((edge: any) => edge[0] === vertex)}
-                  setEnd={setEnd}
-                  end={end}
-                  weightedGraph={true}
-                />
-              ))}
+    <Pagination
+      clicked={false}
+      leftName={'Dfs'}
+      rightName={'aStar'}
+      leftLink={'learning/dfsLesson'}
+      rightLink={'learning/aStarLesson'}
+    >
+      <div className="whole-page-wrapper">
+        <div className="sorting-algo">
+          <h1 className="explanation-title">Dijkstra algorithm</h1>
+          <p className="explanation-text">
+            Instead of exploring all possible paths equally, Dijkstra favors lower
+            cost paths. Distances between nodes are assigned weights that slow other algorithms down.
+          </p>
+          <p className="explanation-text centered-text">
+            <span className="yellow-learning">WEIGHTED</span> - the father of
+            path finding algorithms; guarantees the shortest path.
+          </p>
+        </div>
+        <div className="visualization-wrapper">
+          <MapKeys stats={stats}></MapKeys>
+          <div className="lesson-wrapper">
+            <div className="buttons-pos">
+              <button
+                className={'button'}
+                onClick={() => {
+                  newGraph();
+                }}
+              >
+                NEW Graph
+              </button>
+              <button
+                className={clicked ? 'button disabled' : 'button'}
+                disabled={clicked}
+                onClick={() => {
+                  setClicked(true);
+                  dijkstra();
+                }}
+              >
+                Visualize
+              </button>
+            </div>
+            <div id="myCanvas">
+              <div
+                className="graph-vertices"
+                style={{ gridTemplateColumns: `repeat(${width}, 1fr)` }}
+              >
+                {graph &&
+                  graph.vertices.map((vertex: value) => (
+                    <GraphVertex
+                      algorithm={`${graphNumber}dijk`}
+                      key={Math.random()}
+                      width={width}
+                      vertex={vertex}
+                      edges={graph.edges.filter(
+                        (edge: any) => edge[0] === vertex
+                      )}
+                      setEnd={setEnd}
+                      end={end}
+                      weightedGraph={true}
+                    />
+                  ))}
+              </div>
+            </div>
           </div>
+          <StepsPath steps={steps}></StepsPath>
         </div>
       </div>
-    </div>
+    </Pagination>
   );
 }
 

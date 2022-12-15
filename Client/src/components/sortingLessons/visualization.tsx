@@ -16,6 +16,7 @@ export default function Visualization({
   delay = 100, 
   height = 20, 
   tower = '', 
+  setASCbuttonChange,
   setClicked = () => {},
   setIsSorted
 }:{
@@ -34,16 +35,21 @@ export default function Visualization({
   isSorted?:boolean,
   setClicked?: (value: boolean | ((prevVar: boolean) => boolean)) => void,
   setIsSorted?:(value: boolean | ((prevVar: boolean) => boolean)) => void,
+  setASCbuttonChange?: (value: boolean | ((prevVar: boolean) => boolean)) => void
 }
 ) {
 
     const dispatch = useAppDispatch();  
 
+
     if(clicked) {
       if (tower) dispatch(increaseTowersSorting(tower));
         sortingAlgo(animations, delay, width, margin, tower, height, () => {
           setClicked(false) 
-          setIsSorted?.(true)})
+          setIsSorted?.(true)
+          setASCbuttonChange?.(false)
+        },
+          )
     }
 
     return(

@@ -1,4 +1,5 @@
 import { store } from "../features/store";
+import { generateMaze } from "../utils/maze";
 
 const BASE_URL = 'http://localhost:3000'; //TODO Add to .env
 
@@ -29,16 +30,23 @@ const updateUsername = function (accessToken:any,user:any) { //TODO solve type -
 }
 
 const createMaze = function () { 
-  console.log('apiService roomId:', store.getState().game.roomId);
-  return fetch(`${BASE_URL}/createMaze`, {
-    method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({roomId: store.getState().game.roomId}), 
-  })
-    .then((res) => res.json())
-    .catch((err) => console.log(err));
+  const roomId = store.getState().game.roomId;
+  console.log(roomId);
+  if (roomId) {
+    return fetch(`${BASE_URL}/createMaze`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({roomId}), 
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+  } else {
+    console.log('front end generating maze')
+    const {graph,visited,classes,towers, weightPositions} = generateMaze(86, 40, true, 8);
+    return {graphBE:graph,visited,classes,towers, weightPositions};
+  }
 }
 
 const updateSortLearning = function(accessToken:any,user:any){

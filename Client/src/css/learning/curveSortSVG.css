@@ -35,6 +35,10 @@ svg {
   pointer-events: none;
 }
 
+.circles:hover + .nut {
+  fill: var(--yellow);
+}
+
 .disabled {
   fill: var(--dark-brown);
 }

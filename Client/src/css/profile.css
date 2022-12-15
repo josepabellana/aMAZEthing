@@ -1,190 +1,268 @@
-
 .avatar {
-    width: 6rem;
-    height: 6rem;
-    border-radius: 50px;
-    margin: 5% 0;
+  min-width: 100px;
+  max-height: 100px;
+  border-radius: 50px;
+  border: 4px solid var(--yellow);
+  margin-top: 5px;
+  color: var(--yellow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2vw;
+}
+
+.avatar-letter{
+  font-size: 40px;
+  color:white;
+  font-weight: bold;
 }
 
 .profile-page {
-    background-color: var(--white);
-    height: 90vh;
-    overflow: auto;
-}
-
-.profile-page h1, .profile-page h2 {
-    font-size: 2rem;
-}
-
-.profile-page h3 {
-    font-size: 1rem;
-}
-
-.profile-page h4 {
-    font-size: 0.75rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 90vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .user-dashboard {
-    min-height: 510px;
-    height: 50vh;
-    width: 80vw;
-    margin: 5vh auto 0 auto;
-    border-radius: 20px;
-    display: flex;
-}
-
-.user-info {
-    width: 45%;
-    margin: 1.5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  min-height: min-content;
+  height: fit-content;
+  min-width: 55%;
+  border-radius: 20px;
+  border: 4px solid var(--yellow);
+  padding: 20px;
+  margin: 20px;
 }
 
 .user-part {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .user-name {
-    margin: 0 0 0 2%;
+  margin: 20px;
 }
 
-.learning-progress {
-    margin: 2% 0 0 2%;
+.profile-games {
+  height: 87.5vh;
+}
+
+#username {
+  display: flex;
+  max-width: fit-content;
+}
+
+.user-name-change {
+  background-color: var(--main-green);
+  height: 5vh;
+  margin-bottom: auto;
+  color: var(--white);
+  font-size: 26px;
+  text-align: center;
+  padding: 0px;
+  font-family: 'Staatliches', cursive;
+  cursor: pointer;
+  width: 70%
+}
+
+.username-input input {
+  display: inline-block;
+  border: 4px solid var(--main-green);
+  border-bottom: 4px solid var(--yellow);
+  border-radius: 0px;
+}
+
+.change-the-name-button{
+  margin-right: none;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.username-input:hover input, .user-name-change:focus {
+  border: 4px solid var(--yellow);
+  text-decoration: none;
+  border-radius: 15px 0px 0px 15px;
+}
+
+.username-input:hover button, .user-name-change:focus + button {
+  display: inline-block;
+  pointer-events: all;
+  opacity: 1;
+}
+
+.profile-smaller-text {
+  font-family: 'Staatliches', cursive;
+  font-size: 20px;
+  margin-top: auto;
+  margin-right: 10px;
+  color: var(--white-green);
+}
+
+.profile-email {
+  margin-top: 20px;
+  color: var(--white);
+}
+
+.username-input {
+  width: content;
+  margin-left: 10px;
+  display: flex;
+  height: min-content;
+}
+
+.profile-yellow-text {
+  color: var(--yellow);
+  font-family: 'Staatliches', cursive;
+
+}
+
+.user-name-change::placeholder {
+  color: var(--white);
+  opacity: 1; /* Firefox */
+  font-family: 'Staatliches', cursive;
+  font-size: 26px;
+  text-align: center;
+}
+
+.learning-progress-title,
+.achievements {
+  margin: 10px 0 0 10px;
+}
+
+.change-the-name-button {
+  background-color: var(--main-green);
+  border: 4px solid var(--yellow);
+  height: 5vh;
+  width: 20%;
+  border-radius: 15px 0px 0px 15px;
+  color: var(--yellow);
+  font-size: 30px;
+  font-weight: 700;
+  border-radius: 0px 15px 15px 0px;
+  margin-left: -10px;
+  margin-right: auto;
+  padding: 0;
+}
+
+.change-the-name-button:hover {
+  background-color: var(--yellow);
+  color: var(--main-green);
 }
 
 .progress {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
-.sort-progress, .path-progress {
-    margin: 2% 5%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.sort-progress,
+.path-progress {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.sort-progress-img, .path-progress-img {
-    height: 8rem;
-    width: 10rem;
+.sort-progress-img,
+.path-progress-img {
+  margin: 10px;
+  height: 120px;
+  width: 160px;
 }
 
 .algo-name {
-    text-align: center;
-    font-size: 20px !important;
+  text-align: center;
+  font-size: 20px !important;
 }
 
 .user-stats {
-    margin: 1.5%;
-    width: 55%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 2;
-}
-
-.circle {
-    position: relative;
-    height: 90px;
-    width: 90px;
-    border-radius: 80px;
-    background-color: var(--white-green);
-    display:flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.circles {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-grow: 2;
 }
 
 .stats-line {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
-    color: var(--white-green);
-    border-top: 4px solid var(--white-green);
-    border-bottom: 4px solid var(--white-green);
-    height: 35%;
+  width: 100%;
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: 150px 150px 150px;
+  grid-gap: 20px;
+  padding: 10px;
+  color: var(--white-green);
 }
 
 .stats-text {
-    font-size: 28px !important;
-    font-weight: normal;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.achievements {
-    text-align: center;
+  font-size: 24px !important;
+  font-weight: normal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .wins-yellow {
-    font-size: 28px !important;
-    color: var(--yellow);
+  font-size: 28px !important;
+  color: var(--yellow);
 }
 
 .losses-red {
-    font-size: 28px !important;
-    color: var(--red);
+  font-size: 28px !important;
+  color: var(--red);
 }
 
 .created {
-    text-align: right;
-    color:var(--white)
-}
-
-.changeMe {
-    position: relative;
-    display: inline-block;
-    width: 8rem;
-    height: 4rem;
-    cursor: pointer;
-    margin: 0 0 0 10px;
-}
-
-.input-body, .input-button {
-    height: 50px;
-    width: 250px;
-    border: 0;
-    border-bottom: 1px solid var(--white-green);
-    background-color: transparent;
-    color: var(--white-green);
-    margin: 6px;
-}
-
-.input-button {
-    width: 50px;
-    border: 0;
-    padding: 0;
-    outline: none;
-    color:var(--yellow);
-    font-size: large;
-}
-
-.input-body{
-    font-size: large;
-    width:50%;
-}
-.progress-number{
-    font-size: large !important;
-}
-
-.gameStatsText{
-    font-size: large !important;
+  text-align: right;
+  color: var(--white-green);
 }
 
 *:focus {
-    outline: none;
-    background-color: transparent;
+  outline: none;
+  background-color: transparent;
+}
+
+@media only screen and (max-width: 1250px) {
+  .profile-page {
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    padding-top: 65vh;
+    margin: auto;
+  }
+
+  .user-dashboard {
+    width: 80vw;
+  }
+
+  /* width */
+  .profile-page::-webkit-scrollbar {
+    width: 18px;
+  }
+
+  /* Track */
+  .profile-page::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px var(--white-green);
+    border-radius: 5px;
+  }
+
+  /* Handle */
+  .profile-page::-webkit-scrollbar-thumb {
+    background: var(--white-green);
+    border-radius: 5px;
+  }
+
+  /* Handle on hover */
+  .profile-page::-webkit-scrollbar-thumb:hover {
+    background: var(--yellow);
+  }
+
+  .profile-page::-webkit-scrollbar-corner {
+    background: var(--green);
+  }
+
 }

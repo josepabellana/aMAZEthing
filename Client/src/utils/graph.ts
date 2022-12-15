@@ -8,7 +8,6 @@ export class Graph {
   
   reAssign(graph:Graph){
     Object.assign(this, graph)
-
   }
 
   addVertex (value: value) {
@@ -76,7 +75,7 @@ export class Graph {
     return true;
   }
 
-  findPath (valueX: value, valueY: value, method = 'dfs', width:any =10, heuristicValue:number = 10) {
+  findPath (valueX: value, valueY: value, method = 'dfs', width:any = 10, heuristicValue:number = 10) {
     if (!this.vertices.includes(valueX) || !this.vertices.includes(valueY)) return false;
     let path;
     if (valueX === valueY) return true;

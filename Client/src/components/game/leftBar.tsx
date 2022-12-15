@@ -26,19 +26,17 @@ export default function LeftBar () {
   return (
     <div className="leftBarContainer">
       <div className="flags">
-        <h3 className="p1Name">{(currentPlayer === 'p1') ? user.username : 'Opponent'}</h3>
         <div className="p1Flag">
           <FlagSVG
-            playerName="you"
+            playerName={(currentPlayer === 'p1') ? user.username : 'Opponent'}
             playerScore={gameStats.p1Towers.length}
             playerClass="p1FlagColor"
             textReverse="text-reverse-nope"
           />
         </div>
-        <h1 className="p2Name">{(currentPlayer === 'p2') ? user.username : 'Opponent'}</h1>
         <div className="p2Flag">
           <FlagSVG
-            playerName="Isaac"
+            playerName={(currentPlayer === 'p2') ? user.username : 'Opponent'}
             playerScore={gameStats.p2Towers.length}
             playerClass="p2FlagColor"
             textReverse="text-reverse-yep"
@@ -67,9 +65,6 @@ export default function LeftBar () {
 
             <h1 className="left-just-stats">{minions[currentMinion].type}</h1>
 
-            <h1 className="left-just-text">ID</h1>
-            <h1 className="left-just-stats">{minions[currentMinion].id}</h1>
-
             <h1 className="left-just-text">Alignment</h1>
             <h1 className="left-just-stats">
               {minions[currentMinion].alignment}
@@ -85,12 +80,13 @@ export default function LeftBar () {
               {minions[currentMinion].sortingAlgo}
             </h1>
 
-            <h1 className="left-just-text">
-              {minions[currentMinion].sortingSpeed}
-            </h1>
+            <h1 className="left-just-text">Sorting speed</h1>
             <h1 className="left-just-stats">
               {minions[currentMinion].sortingSpeed}
             </h1>
+
+            <h1 className='left-just-text'>Speed</h1>
+            <h1 className='left-just-stats'>{minions[currentMinion].movementSpeed}</h1>
           </div>
         )}
 
@@ -100,11 +96,10 @@ export default function LeftBar () {
             'none' ? (
               <h1 className="current-minion-name-left-bar">unsorted</h1>
             ) : (
-              <h1 className="current-minion-name-left-bar">
-                {currentTower &&
-                  towers.find((tower) => tower.id === currentTower.id)!
-                    .alignment}
-                's tower
+              <h1 className="current-minion-name-left-bar left-bar-tower-alignment">
+                {currentTower && currentTower.alignment === 'none' ? 'neutral tower' :
+                                currentTower.alignment === currentPlayer ? 'your tower' : "opponent's tower"
+                }
               </h1>
             )}
             {towers.find((tower) => tower.id === currentTower.id)!.alignment ===

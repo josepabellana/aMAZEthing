@@ -19,3 +19,7 @@ text {
   transform: scaleX(-1) translateX(-540px);
 }
 
+.player-name {
+  left: 100px;
+}
+

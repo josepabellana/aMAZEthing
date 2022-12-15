@@ -1,7 +1,7 @@
 
 
 .gameOver {
-  --winOrLose: var(--yellow);
+  --winOrLose: var(--red);
   position: absolute;
   height: 100%;
   width: 100%;
@@ -13,7 +13,7 @@
 }
 
 .gameOver.lose {
-  --winOrLose: var(--red);
+  --winOrLose: var(--yellow);
 }
 
 .gameOverModal {
@@ -76,7 +76,7 @@
   background-color: var(--purple);
   border: 4px solid var(--winOrLose);
   border-radius: 15px;
-  width: 7vw;
+  width: 120px;
   height: 5vh;
   font-size: 21px;
 }

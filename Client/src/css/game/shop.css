@@ -1,8 +1,9 @@
 .shop-page {
   background-color: var(--sand);
-  height: 76vh;
+  height: 82vh;
   width: 94%;
   border-radius: 15px 15px 0 0;
+  margin-top: 6.5vh;
 }
 
 .the-shop-sign {
@@ -11,7 +12,7 @@
 }
 
 .shop-list {
-  height: 76vh;
+  height: 72vh;
   overflow-y: auto;
   list-style-type: none;
   margin: 0;
@@ -49,10 +50,12 @@
   margin-bottom: 0px;
   padding-bottom: 0px;
   white-space: nowrap;
+  line-height: 10px;
 }
 
 .shop-just-stats {
   width: 70%;
+  margin-top: 0px;
   margin-bottom: 10px;
   padding-top: 0px;
   font-size: 30px;
@@ -64,7 +67,35 @@
 .price {
   color: var(--yellow);
   text-shadow: 2px 2px var(--red);
+}
 
+.neutral-color {
+  fill: var(--main-grey)
+}
+
+.shop-button-disabled, .shop-button-disabled .shop-just-stats {
+  color: var(--main-grey);
+}
+
+.shop-button-disabled {
+  position: relative;
+}
+
+.shop-button-disabled:hover {
+  border-color: var(--sand);
+}
+
+.shop-button-disabled .price {
+  color: var(--yellow);
+}
+
+.shop-button-disabled::after {
+  content: 'X';
+  color: var(--red);
+  position: absolute;
+  transform: scale(400%);
+  left: 50%;
+  top: 10%
 }
 
 /* width */

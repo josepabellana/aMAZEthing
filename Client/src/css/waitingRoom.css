@@ -3,6 +3,7 @@
   margin-left: auto;
   margin-right: auto;
   color: var(--white-green);
+  background-color: var(--main-green);
 }
 
 .waiting-room span, .waiting-room p {
@@ -36,7 +37,7 @@
   background-color: transparent;
   border: none;
   width: fit-content;
-  margin-left: auto;
+  /* margin-left: auto; */
 }
 
 .wr-amazing-text {
@@ -73,6 +74,10 @@
   display: flex;
   flex-direction: column;
   padding-left: 3vw;
+}
+
+.wr-play-button {
+  margin-right: auto;
 }
 
 .wr-play-button:hover {
@@ -113,9 +118,6 @@
 
 .join-code-input {
   display: flex;
-  /* margin-left: auto;
-  margin-right: auto; */
-  /* margin-right: 16px; */
 }
 
 .join-room-code {
@@ -152,10 +154,19 @@
   border: 10px solid var(--dark-green);
   border-radius: 50%;
   border-top: 10px solid var(--red);
-  width: 100px;
-  height: 100px;
+  min-width: 100px;
+  min-height: 100px;
   animation: spinner 4s linear infinite;
 }
+
+.tutorial-button {
+  cursor: pointer;
+}
+
+.tutorial-button:hover {
+  color: var(--red);
+}
+
 
 @keyframes spinner {
   0% { transform: rotate(0deg); }
@@ -172,7 +183,10 @@
   cursor: default;
 }
 
-.wr-game-history {
-  /* margin-left: -4vw; */
+.tutorial-button h1{
+  text-align: center;
 }
 
+.tutorial-button.waiting-page-join-button:hover h1{
+  color: var(--yellow);
+}

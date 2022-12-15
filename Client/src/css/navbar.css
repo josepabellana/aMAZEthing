@@ -25,10 +25,14 @@
 }
 
 .button {
+  min-width: max-content;
   background-color: transparent;
   border: 0;
   font-size: 40px;
-  margin: 40px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-right:10px;
+  margin-left:10px;
 }
 
 button:hover {
