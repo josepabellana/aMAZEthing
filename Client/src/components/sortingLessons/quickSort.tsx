@@ -5,6 +5,9 @@ import Visualization from "./visualization";
 import { quickSortVisual } from "../../utils/sorting-helper-visual";
 import { quickSortAlgo } from "../../utils/sorting-algo";
 import { useAlgo } from "../../features/hooks";
+import Pagination from "../learning/pagination";
+import SortSteps from "./sortSteps";
+import MapKeys from "./sortStats";
 
 export default function QuickLesson() {
   const [array, setArray] = useState([3, 5, 7]);
@@ -12,19 +15,34 @@ export default function QuickLesson() {
   const [animations, setAnimations] = useState([[1]]);
   const [isSorted, setIsSorted] = useState(false);
 
-  const WIDTH = 25;
-  const MIN_VAL = 10;
-  const MAX_VAL = 60;
-  const NUM_BARS = 35;
+
+
+  let steps = [
+    "Choose a pivot element from the list",
+    "Divide the list into two sub-lists. First sub-list contains all the elements that are less than the pivot element, and the second sub-list vice-versa.",
+    "Sort each sub-list using the Quick Sort algorithm.",
+    "Combine the two sorted sub-lists and the pivot element to create a fully sorted list.",
+    "Repeat the process until the entire list is sorted",
+  ];
+
+
+  let isQuick = true
+
+
+  const WIDTH = 27;
+  const MIN_VAL = 5;
+  const MAX_VAL = 100;
+  const NUM_BARS = 20;
+  const FONTSIZE = 15
   const DELAY = 10;
   const PADTOP = 5;
-  const MARGIN = 3;
-  const HEIGHT = 8;
+  const MARGIN = 1.5;
+  const HEIGHT = 2.5;
 
   const paragraphs = {
     sortName: "Quick sort",
     firstP:
-      "Bubble Sort is the simplest sorting algorithm that swaps two elements if they are in the wrong order. As we go through each element, if the current element is bigger than the next one, we swap them. This algorithm is not suitable for large data sets as its average and worst-case time complexity is quite high.",
+      "Quick sort is a sorting algorithm that works by partitioning a list of items into two smaller sub-lists. The algorithm then sorts each sub-list recursively until the entire list is sorted.",
   };
 
   useEffect(() => {
@@ -44,57 +62,73 @@ export default function QuickLesson() {
   }
 
   return (
+    <Pagination  clicked={clicked} leftName={'Merge'} rightName={'Customize'} leftLink={'learning/mergeLesson'} rightLink={'learning/allSortsPlay'}>
     <div className="whole-page-wrapper">
       <div className="sorting-algo">
         <h1 className="explanation-title">{paragraphs.sortName}</h1>
         <p className="explanation-text">{paragraphs.firstP}</p>
       </div>
 
-      <div className="lesson-wrapper-2">
-        <div>
-          <button
-            className={
-              clicked ? "button disabled clickSort" : "button clickSort"
-            }
-            disabled={clicked ? true : false}
-            onClick={() => initArr()}
-          >
-            new array
-          </button>
+      < div className="lesson-wrapper-2">
+          <div className="visualRow">
+            <MapKeys isTrue ={'Quick'} animations={animations}></MapKeys>
 
-          <button
-            className={
-              clicked && !isSorted
-                ? "button disabled clickSort"
-                : isSorted
-                ? "button disabled clickSort"
-                : "button clickSort"
-            }
-            disabled={!isSorted && clicked ? true : isSorted ? true : false}
-            onClick={() => {
-              setClicked(true);
-            }}
-          >
-            visualize
-          </button>
+            <div className="visual-arrayAndButtons">
+              <div className="visual-buttons">
+              <button
+                className={
+                  clicked ? "button disabled clickSort" : "button clickSort"
+                }
+                disabled={clicked ? true : false}
+                onClick={() => initArr()}
+              >
+                new array
+              </button>
+
+              <button
+                className={
+                  clicked && !isSorted
+                    ? "button disabled clickSort"
+                    : isSorted
+                    ? "button disabled clickSort"
+                    : "button clickSort"
+                }
+                disabled={!isSorted && clicked ? true : isSorted ? true : false}
+                onClick={() => {
+                  setClicked(true);
+                }}
+              >
+                visualize
+              </button>
+              </div>
+            
+
+              <div className="visual-array">
+              <Visualization
+                width={WIDTH}
+                delay={DELAY}
+                margin={MARGIN}
+                paddingTop={PADTOP}
+                array={array}
+                height={HEIGHT}
+                fontColor={"white"}
+                key={array as any}
+                animations={animations}
+                clicked={clicked}
+                sortingAlgo={quickSortVisual}
+                setClicked={setClicked}
+                setIsSorted={setIsSorted}
+                fontSize={FONTSIZE}
+                tower={undefined}
+                isSorted={false}
+              />
+              </div>
+            </div>
+
+            <SortSteps steps={steps}></SortSteps>
+          </div>
         </div>
-
-        <Visualization
-          fontColor={"white"}
-          width={WIDTH}
-          delay={DELAY}
-          margin={MARGIN}
-          paddingTop={PADTOP}
-          height={HEIGHT}
-          array={array}
-          key={array}
-          animations={animations}
-          clicked={clicked}
-          sortingAlgo={quickSortVisual}
-          setClicked={setClicked}
-          setIsSorted={setIsSorted}
-        />
-      </div>
     </div>
+    </Pagination>
   );
 }

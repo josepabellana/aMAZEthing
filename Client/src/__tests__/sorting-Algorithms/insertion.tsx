@@ -5,7 +5,6 @@ describe('Insertion Sort', () => {
   test('Sorts an array', () => {
     let array = [5,3,6,7,8,3];
     let sortedAnimations = insertionSortAlgo([...array], true);
-    console.log(sortedAnimations);
     expect(sortedAnimations).toEqual(
       [
         [ 1, 3 ],       [ 2, 6 ],

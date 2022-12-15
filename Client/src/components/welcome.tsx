@@ -4,9 +4,9 @@ import MediaQuery, { useMediaQuery } from 'react-responsive';
 
 function Welcome() {
   const navigate = useNavigate();
-  const isDesktop = useMediaQuery({minWidth: 951});
-  const isTablet = useMediaQuery({minWidth: 651, maxWidth:950});
-  const isPhone = useMediaQuery({maxWidth: 650});
+  const isDesktop = useMediaQuery({ minWidth: 951 });
+  const isTablet = useMediaQuery({ minWidth: 651, maxWidth: 950 });
+  const isPhone = useMediaQuery({ maxWidth: 650 });
 
   return (
     <div className="welcome-page">
@@ -14,10 +14,10 @@ function Welcome() {
         <>
           <h1 className="welcome">WELCOME.</h1>
           <button className="options" onClick={() => navigate('/waitingRoom')}>
-            PLAY
+            <h3>PLAY</h3>
           </button>
           <button className="options" onClick={() => navigate('/learning')}>
-            LEARN
+            <h3>LEARN</h3>
           </button>
         </>
       )}
@@ -28,13 +28,13 @@ function Welcome() {
             className="options-medium"
             onClick={() => navigate('/waitingRoom')}
           >
-            PLAY
+            <h3>PLAY</h3>
           </button>
           <button
             className="options-medium"
             onClick={() => navigate('/learning')}
           >
-            LEARN
+            <h3>LEARN</h3>
           </button>
         </div>
       )}
@@ -46,13 +46,13 @@ function Welcome() {
             className="options-small"
             onClick={() => navigate('/waitingRoom')}
           >
-            PLAY
+            <h3>PLAY</h3>
           </button>
           <button
             className="options-small"
             onClick={() => navigate('/learning')}
           >
-            LEARN
+            <h3>LEARN</h3>
           </button>
         </div>
       )}

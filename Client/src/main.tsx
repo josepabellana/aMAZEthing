@@ -19,6 +19,7 @@ import DijkstraLesson from './components/pathfindingLessons/dijkstraLesson';
 import AllSortsPlay from './components/sortingLessons/allSortsPlay';
 import WaitingRoom from './components/waitingRoom';
 import AStarLesson from './components/pathfindingLessons/aStar';
+import Tutorial from './components/game/tutorial';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: '/game',
         element: <Game />,
+      },
+      {
+        path: '/tutorial',
+        element: <Tutorial />
       },
       {
         path: '/learning',

@@ -40,6 +40,7 @@ const gameSlice = createSlice({
         p2MinionCount: 0,
       }
       defaultState.displayVisited = [];
+
       return defaultState;
     },
     updateRoomID(state, action: PayloadAction<string>) {
@@ -59,6 +60,15 @@ const gameSlice = createSlice({
       state.zoomed = true;
       if (state.boxSize - action.payload < state.minBoxSize) state.boxSize = state.minBoxSize;
       else state.boxSize -= action.payload;
+    },
+    updateMaxBoxSize(state, action: PayloadAction<number>) {
+      state.maxBoxSize = action.payload;
+    },
+    updateMinBoxSize(state, action: PayloadAction<number>) {
+      state.minBoxSize = action.payload;
+    },
+    updateBoxSize(state, action: PayloadAction<number>) {
+      state.boxSize = action.payload;
     },
     mazeComplete(state) {
       state.mazeCompleted = true;
@@ -97,6 +107,13 @@ const gameSlice = createSlice({
     addNewMinionState(state, action: PayloadAction<{type: animal, player: 'p1' | 'p2'}>) {
       const newId = Object.keys(state.minions).length;
       const {type, player} = action.payload;
+      if (player === 'p1') {
+        if (state.gameStats.p1Coins < type.cost) return;
+        state.gameStats.p1Coins -= type.cost;
+      } else {
+        if (state.gameStats.p2Coins < type.cost) return;
+        state.gameStats.p2Coins -= type.cost;
+      }
       let playerSpecific = {
         xPos: 0,
         yPos: 3,
@@ -187,6 +204,7 @@ const gameSlice = createSlice({
     newTowers(state, action: PayloadAction<any[]>) {
       const towers = action.payload;
       const width = state.width;
+      if (towers === undefined) return;
       state.towers = towers.map(tower => {
         return {
           id: tower[0],
@@ -257,6 +275,32 @@ const gameSlice = createSlice({
       const { roomId, player } = action.payload;
       state.roomId = roomId;
       state.currentPlayer = player;
+    },
+    addNewInterval(state, action: PayloadAction<NodeJS.Timer>) {
+      state.intervals.push(action.payload);
+    },
+    clearIntervals(state) {
+      for (let interval of state.intervals) {
+        console.log(interval);
+        clearInterval(interval);
+      }
+      for (let interval of state.animationFrames) {
+        cancelAnimationFrame(interval);
+      }
+      state.intervals = [];
+      state.animationFrames = [];
+    },
+    resetIntervals(state) {
+      state.intervals = [];
+    },
+    resetMinions(state) {
+      state.minions = {};
+    },
+    updateWeightPositions(state, action: PayloadAction<{[key: string]: { xPos: number; yPos: number}}>) {
+      state.weightPositions = action.payload;
+    },
+    addNewAnimationFrame(state, action: PayloadAction<number>) {
+      state.animationFrames.push(action.payload);
     }
   }
 })
@@ -293,6 +337,15 @@ export const {
   updateDisplayVisited,
   increaseTowersSorting,
   updateMazeGenerated,
-  receiveRoomId
+  addNewInterval,
+  resetIntervals,
+  receiveRoomId,
+  resetMinions,
+  clearIntervals,
+  updateWeightPositions,
+  updateMaxBoxSize,
+  updateMinBoxSize,
+  updateBoxSize,
+  addNewAnimationFrame
 } = gameSlice.actions;
 export default gameSlice.reducer;

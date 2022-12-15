@@ -4,6 +4,20 @@
   box-sizing: border-box;
   line-height: 1.5;
   scroll-behavior: smooth;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'Staatliches';
+  src: local('Staatliches'), url('./assets/font-fam/Staatliches-Regular.ttf') format('truetype')
+}
+
+.array {
+  text-align: center;
+}
+
+.fullContainer {
+  height: 100vh;
 }
 
 :root {
@@ -18,6 +32,7 @@
   --white-green-hover: #96B0A2;
   --red: #c1121f;
   --yellow: #ffb703;
+  --yellow-hover: #eba800;
   --dark-brown: #3C2923;
   --white: #ffff;
   --purple: #323356;

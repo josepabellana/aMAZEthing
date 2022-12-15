@@ -2,13 +2,23 @@
   width: 10vw;
   font-size: 20px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   flex-direction: column;
-  height: max-content;
+  /* height: max-content; */
   flex-direction: column;
-  margin-top: -1.5vh;
+  margin-top: -13vh;
   min-width: 150px;
+  height: 90vh;
+}
+
+.your-animals-sign {
+  color: var(--yellow);
+  text-align: center;
+  /* position: fixed; */
+  font-size: 26px;
+  /* margin-left: auto; */
+  padding-top: 10vh;
 }
 
 .store-button {
@@ -16,6 +26,7 @@
   background-color: transparent;
   border: none;
   border-radius: 0 0 15px 15px;
+  /* padding-top: 1vh; */
 }
 
 .shopSVG {
@@ -26,7 +37,7 @@
 }
 
 .your-minions-list {
-  height: 76vh;
+  height: 66vh;
   overflow-y: auto;
   list-style-type: none;
   margin: 0;
@@ -39,6 +50,11 @@
   text-align: center;
 }
 
+.right-just-text {
+  font-size: 18px;
+  text-align: center;
+}
+
 .your-minion-button {
   width: 80%;
   margin-left: auto;
@@ -46,11 +62,16 @@
   cursor: pointer;
   border: 3px solid transparent;
   border-radius: 15px;
+  margin-bottom: 5px;
 }
 
 .your-minion-button:hover {
   border: 3px solid var(--yellow);
   border-radius: 15px;
+}
+
+.open-shop-arrow {
+  margin-top: 50vh;
 }
 
 .cross-size {
@@ -79,4 +100,17 @@
 /* Handle on hover */
 .your-minions-list::-webkit-scrollbar-thumb:hover {
   background: var(--yellow);
+}
+
+.right-bar-selected-animal {
+  border-color: var(--yellow);
+  background-color: var(--purple);
+}
+
+.right-bar-selected-animal .right-bar-name {
+  color: var(--yellow);
+}
+
+.right-bar-selected-animal:hover {
+  border-color: var(--yellow);
 }

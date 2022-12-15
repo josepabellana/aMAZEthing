@@ -2,17 +2,15 @@ import '../../css/game/game.css';
 import Maze from './maze';
 import RightBar from './rightBar';
 import LeftBar from './leftBar';
-import { useEffect, useRef, useState } from 'react';
-import { animal, MazeTileType, minionType, TowerType } from '../../utils/types';
+import { useEffect } from 'react';
+import { animal, minionType, TowerType } from '../../utils/types';
 import { Graph, value } from '../../utils/graph';
-import { aStar, distanceConstruct, getDirection, vBFS, vDFS, vDijk } from '../../utils/path-finding-algo';
+import { getDirection} from '../../utils/path-finding-algo';
 import { bubbleSortAlgo, insertionSortAlgo, mergeSortAlgo, quickSortAlgo, selectionSortAlgo } from '../../utils/sorting-algo';
-import { uniqueNamesGenerator, Config, names} from 'unique-names-generator'
 import socket from '../../services/socket';
 import GameOver from './gameOver';
-import { store } from '../../features/store';
 import { useAppDispatch, useAppSelector, usePathAlgo } from '../../features/hooks';
-import { addMovingMinion, addNewMinionState, finalGameStats, minionEnterTower, minionExitTower, opponentMinionMovement, removeMovingMinion, setWaitingForTile, updateCurrentMinion, updateCurrentTile, updateCurrentTower, updateGameEnded, updateGameStats, updateMazePath, updateMinion, updateTowerNumbers, updateZoomed } from '../../features/game_slice';
+import { addMovingMinion, addNewAnimationFrame, addNewInterval, addNewMinionState, clearIntervals, finalGameStats, minionEnterTower, minionExitTower, opponentMinionMovement, removeMovingMinion, resetIntervals, resetMinions, setWaitingForTile, updateCurrentMinion, updateCurrentTile, updateCurrentTower, updateGameEnded, updateGameStats, updateMazePath, updateMinion, updateTowerNumbers, updateZoomed } from '../../features/game_slice';
 
 // TODO: Convert request animation frames to setInterval
 
@@ -22,14 +20,12 @@ export interface GameStatsType {timeRemaining: number, p1Coins: number, p2Coins:
 
 function Game() { // TODO: Extract logic to maze class
 
-  const {currentPlayer, roomId, mazeCompleted, waitingForTile, height, width, currentGraph, currentMinion, currentTower, gameStats, gameEnded, minions, currentTile, movingMinions, towers} = useAppSelector(state => state.game);
+  const {currentPlayer, roomId, mazeCompleted, waitingForTile, height, width, currentGraph, currentMinion, mazeGenerated, gameStats, gameEnded, minions, currentTile, movingMinions, towers, weightPositions} = useAppSelector(state => state.game);
 
   const dispatch = useAppDispatch();
 
-
-
   useEffect(() => {
-    console.log('setting maze generated');
+    dispatch(clearIntervals());
     socket.on('maze generated', () => {
       console.log('all players ready to play')
     })
@@ -39,7 +35,7 @@ function Game() { // TODO: Extract logic to maze class
     return ()=>{
       socket.off('maze generated');
       socket.off('updateGameState');
-      console.log('clearing waiting');
+      dispatch(clearIntervals());
       socket.emit('clear waiting', socket.id) // TODO: Currently this prevents them from joining the game on game start
     }
   }, [])
@@ -86,8 +82,8 @@ function Game() { // TODO: Extract logic to maze class
     }
   }
 
-
-  async function moveMinion(goTo: {xPos: number, yPos: number}, comeFrom: {xPos: number, yPos: number}, currentGraph: Graph, minion: false | minionType = false, showPath = true) {
+  interface position {xPos: number, yPos: number};
+  async function moveMinion(goTo: position, comeFrom: position, currentGraph: Graph, minion: false | minionType = false, showPath = true) {
     if (!minion) minion = minions[currentMinion as number] as minionType;
     let directions : false | {
       visited: value[];
@@ -106,49 +102,65 @@ function Game() { // TODO: Extract logic to maze class
     }
 
     dispatch(updateMinion({minionId: currentMinion as number, updatedMinion: minion}));
-    // if (showPath) setPath(minion.path, minion.thoughtProcess, minion.id);
     showPathSlowly(path, visited, minion);
     function showPathSlowly(path: number[], thoughtProcess: number[], minion: minionType) {
       path = [...path];
       thoughtProcess = [...thoughtProcess];
-      let prevStep: number;
       let showThoughtProcess: number[] = [];
       let showPath: number[] = [];
-      function step(interval: number) {
+      function step() {
         if (path.length === 0) {
           applyMovement(minion as minionType);
+          clearInterval(interval);
           return;
         };
-        if (!prevStep) prevStep = interval;
-        let nextThought = thoughtProcess.splice(0, Math.ceil(thoughtProcess.length/10));
+        let nextThought = thoughtProcess.splice(0, Math.ceil(thoughtProcess.length/3));
         if (nextThought.length) {
           showThoughtProcess.push(...nextThought);
         } else {
           showPath.push(path.shift() as number);
         }
-        if (currentMinion === minion.id) setPath(showPath, showThoughtProcess, minion.id); // TODO: get current Minion
-        requestAnimationFrame(step);
+        if (currentMinion === minion.id) {
+          setPath(showPath, showThoughtProcess, minion.id);
+        } // TODO: get current Minion
+        const newFrameId = requestAnimationFrame(step);
+        dispatch(addNewAnimationFrame(newFrameId));
       }
-      requestAnimationFrame(step);
+      const interval = requestAnimationFrame(step);
+      dispatch(addNewAnimationFrame(interval));
     }
     function applyMovement(minion: minionType) {
       let xAdd = 0;
       let yAdd = 0;
-      let previousTimeStamp: undefined | number;
+      let previousInterval: number;
       let previousDirection = minion.xPos + minion.yPos*width;
-      function step(timestamp: number) {
-        if (previousTimeStamp === undefined) {
-          previousTimeStamp = timestamp;
-        }
-        let updatedMinion = minion as minionType;
-        if ((previousTimeStamp as number) + minion.movementSpeed < timestamp) {
-          previousTimeStamp = timestamp
-          const nextDirection = path.shift() as number;
+      let nextDirection: number;
+      let slow = 0;
+      let max: number;
+      let min: number;
+      let slowAmount = 5;
+      function step (interval: number) {
+        if (previousInterval === undefined) previousInterval = interval;
+        if (interval > previousInterval + minion.movementSpeed) {
+          previousInterval = interval;
+          let updatedMinion = minion as minionType;
+          if (slow === slowAmount) slow = 0;
+          if (slow === 0) {
+            nextDirection = path.shift() as number;
+            max = Math.max(nextDirection, previousDirection);
+            min = Math.min(nextDirection, previousDirection);
+          };
+          let key = `${min}-${max}`;
+          let multiplier = 1;
+          if (weightPositions[key] && slow < slowAmount) {multiplier = 1/slowAmount; slow++}
+          else slow = 0;
           const direction = getDirection(previousDirection as number, nextDirection as number, width);
+          direction.xPos *= multiplier;
+          direction.yPos *= multiplier;
           socket.emit('minion move', direction, minion.id, roomId);
           xAdd += direction.xPos;
           yAdd += direction.yPos;
-          previousDirection = nextDirection;
+          if (slow === 0 || slow === slowAmount) previousDirection = nextDirection;
           updatedMinion = {
             ...(minion as minionType),
             yPos: (minion as minionType).yPos + yAdd,
@@ -156,20 +168,38 @@ function Game() { // TODO: Extract logic to maze class
             rotation: direction.rotation
           }
           dispatch(updateMinion({minionId: minion.id, updatedMinion}));
-        }
-        if (path.length) requestAnimationFrame(step);
-        else {
-          dispatch(updateMinion({minionId: minion.id, updatedMinion: {...updatedMinion, rotation: ''}}));
-          dispatch(removeMovingMinion(minion.id));
-          for (let tower of towers) {
-            if (tower.minion === null && tower.xPos === updatedMinion.xPos && tower.yPos === updatedMinion.yPos && tower.alignment !== updatedMinion.alignment) {
-              socket.emit('enterTower', tower.id, minion.id, roomId, currentPlayer);
-              enterTower(tower.id, (minion as minionType).id);
+
+          if (path.length === 0 && (slow === 0 || slow >= slowAmount - 1)) {
+            if (slow === slowAmount - 1) {
+              updatedMinion = {
+                ...updatedMinion,
+                yPos: Math.round(updatedMinion.yPos + direction.yPos),
+                xPos: Math.round(updatedMinion.xPos + direction.xPos),
+                rotation: 'minionR' as 'minionR'
+              };
             }
+            updatedMinion = {
+              ...updatedMinion,
+              yPos: Math.round(updatedMinion.yPos),
+              xPos: Math.round(updatedMinion.xPos),
+            };
+            dispatch(updateMinion({minionId: minion.id, updatedMinion: {...updatedMinion, rotation: ''}}));
+            clearInterval(interval);
+            dispatch(removeMovingMinion(minion.id));
+            for (let tower of towers) {
+              if (tower.minion === null && tower.xPos === updatedMinion.xPos && tower.yPos === updatedMinion.yPos && tower.alignment !== updatedMinion.alignment) {
+                socket.emit('enterTower', tower.id, minion.id, roomId, currentPlayer);
+                enterTower(tower.id, (minion as minionType).id);
+              }
+            }
+            return;
           }
         }
+        const newFrameId = requestAnimationFrame(step);
+        dispatch(addNewAnimationFrame(newFrameId));
       }
-      requestAnimationFrame(step);
+      const interval = requestAnimationFrame(step);
+      dispatch(addNewAnimationFrame(interval));
     }
   }
 
@@ -224,6 +254,7 @@ function Game() { // TODO: Extract logic to maze class
         clearInterval(interval);
         resolve(true);
       }, minion.sortingSpeed*2*(animations.length + 4)); // TODO: Check this is accurate
+      dispatch(addNewInterval(interval));
     })
     exitTower(towerId, minionId, movedAfter);
   }
@@ -231,13 +262,7 @@ function Game() { // TODO: Extract logic to maze class
   function exitTower(towerId: number, minionId: number, movedAfter: boolean) {
     let minion = minions[minionId];
     let tower = towers.find(tower => tower.id === towerId) as TowerType;
-    if (minion.alignment === currentPlayer) {
-      if (tower.alignment === 'none') {
-        socket.emit('conquerTower', roomId, towerId, true, currentPlayer);
-      } else {
-        socket.emit('conquerTower', roomId, towerId, false, currentPlayer);
-      }
-    }
+    if (minion.alignment === currentPlayer) socket.emit('conquerTower', roomId, towerId, tower.alignment === 'none', currentPlayer);
     dispatch(minionExitTower({minionId, towerId}));
     dispatch(addMovingMinion(currentMinion as number));
     tower = towers.find(tower => tower.id === towerId) as TowerType;

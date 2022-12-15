@@ -1,82 +1,82 @@
 .b {
   background-image: url(../../assets/tiles/b.svg);
-  background-size: fill;
+
 }
 
 .t {
   background-image: url(../../assets/tiles/t.svg);
-  background-size: fill;
+
 }
 
 .l {
   background-image: url(../../assets/tiles/l.svg);
-  background-size: fill;
+
 }
 
 
 .r {
   background-image: url(../../assets/tiles/r.svg);
-  background-size: fill;
+
 }
 
 .l.t {
   background-image: url(../../assets/tiles/lt.svg);
-  background-size: fill;
+
 }
 
 
 .r.t {
   background-image: url(../../assets/tiles/rt.svg);
-  background-size: fill;
+
 }
 
 
 .b.t {
   background-image: url(../../assets/tiles/bt.svg);
-  background-size: fill;
+
 }
 
 
 .b.l {
   background-image: url(../../assets/tiles/bl.svg);
-  background-size: fill;
+
 }
 
 
 .b.r {
   background-image: url(../../assets/tiles/br.svg);
-  background-size: fill;
+
 }
 
 .l.r {
   background-image: url(../../assets/tiles/lr.svg);
-  background-size: fill;
+
 }
 
 .b.r.t {
   background-image: url(../../assets/tiles/brt.svg);
-  background-size: fill;
+
 }
 
 
 .b.l.t {
   background-image: url(../../assets/tiles/blt.svg);
-  background-size: fill;
+
 }
 
 .l.r.t {
   background-image: url(../../assets/tiles/lrt.svg);
-  background-size: fill;
+
 }
 
 .b.l.r {
   background-image: url(../../assets/tiles/blr.svg);
-  background-size: fill;
+
 }
 
 .b.l.r.t {
   background-image: url(../../assets/tiles/blrt.svg);
-  background-size: fill;
+
 }
 
 .showNone {

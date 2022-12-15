@@ -1,46 +1,69 @@
 .gameDashboard {
-  min-height: 510px;
-  height: 50vh;
-  width: 80vw;
+  height: 100%;
+  min-width: 60%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  gap: 5vh;
-  margin: 0 auto;
+  gap: 20px;
+  overflow: auto;
+  overflow-x: hidden;
+  margin: 20px;
 }
 
 .match {
-  height: 200px;
-  width: 100%;
+  height: 20vh;
+  min-height: 200px;
+  min-width: 470px;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: stretch;
   background-color: var(--purple);
   padding: 20px;
-  padding-top: 10px;
-  padding-left: 30px;
+  margin-right: 20px;
 }
 
-.gameDuration {
-  height: 100%;
-  flex-grow: 2;
-  background-color: inherit;
+.game-status {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.match-win {
+  border: 4px solid var(--yellow);
+}
+
+.match-loss {
+  border: 4px solid var(--red);
+}
+
+.match-draw {
+  border: 4px solid var(--main-grey);
+}
+
+.stats-profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .result-win {
-  margin-bottom: -10px;
   font-size: 50px !important;
   color: var(--yellow);
 }
 
 .result-loss {
-  margin-bottom: -10px;
   font-size: 50px !important;
   color: var(--red);
+}
+
+.result-draw {
+  font-size: 50px !important;
+  color: var(--main-grey);
 }
 
 .date {
@@ -59,14 +82,58 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 24px;
+}
+
+.gameStatsText {
+  color: var(--yellow);
 }
 
 .durationDate {
-  font-size: 25px !important;
+  font-size: 15px !important;
+  vertical-align: bottom;
 }
 
 .image-profile {
   height: 70px;
   width: 70px;
   margin: 20px;
+}
+
+/* width */
+.gameDashboard::-webkit-scrollbar {
+  width: 18px;
+}
+
+/* Track */
+.gameDashboard::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--white-green);
+  border-radius: 5px;
+}
+
+/* Handle */
+.gameDashboard::-webkit-scrollbar-thumb {
+  background: var(--white-green);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.gameDashboard::-webkit-scrollbar-thumb:hover {
+  background: var(--yellow);
+}
+
+.gameDashboard::-webkit-scrollbar-corner {
+  background: var(--green);
+}
+
+@media only screen and (max-width: 1250px) {
+  .gameDashboard {
+    width: inherit;
+    overflow: visible;
+  }
+
+  .match {
+    width: 75vw;
+    overflow: visible;
+  }
 }

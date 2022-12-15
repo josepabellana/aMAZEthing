@@ -14,6 +14,10 @@
   fill: var(--yellow);
 }
 
+.neutral-color {
+  fill: var(--grey);
+}
+
 .p2-color {
   fill: var(--red);
 }
@@ -44,6 +48,14 @@
 
 .minionInTower {
   animation: enterTower linear 1s forwards;
+}
+
+.selected {
+  /* background-color: aquamarine; */
+  transition: all 0.2s;
+  box-shadow: 0 0 20px var(--yellow);
+  border: 2px solid var(--yellow);
+  border-radius: 10px;
 }
 
 @keyframes enterTower {

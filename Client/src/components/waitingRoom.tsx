@@ -20,30 +20,29 @@ function WaitingRoom() {
   useEffect(() => {
     dispatch(defaultState());
     socket.on('receiveRoomId', (roomId: string, player: 'p1' | 'p2', type: 'Host' | 'Join' | 'Play') => {
-      console.log('Received room ID', {roomId})
       setId(roomId);
       dispatch(receiveRoomId({roomId, player}));
-      console.log('Emitting ready');
       socket.emit(`ready${type}`, roomId);
     });
+    return ()=>{
+      // socket.emit('clear waiting', store.getState().game.roomId) // TODO: Currently this prevents them from joining the game on game start
+      socket.off('receiveRoomId');
+      setPlayClicked(false);
+    }
+  }, []);
+
+  useEffect(() => {
     socket.on('Game start', () => {
       if (roomId) {
-        console.log('Game started', roomId);
         navigate('/game');
       } else {
         socket.emit('retry game start');
       }
     });
-    return ()=>{
-      // console.log('clearing waiting');
-      // socket.emit('clear waiting', store.getState().game.roomId) // TODO: Currently this prevents them from joining the game on game start
-      socket.off('receiveRoomId');
-      socket.off('receiveRoomIdHost');
-      socket.off('receiveRoomIdJoin');
+    return () => {
       socket.off('Game start');
-      setPlayClicked(false);
     }
-  }, []);
+  }, [roomId])
 
   function hostRoom() {
     socket.emit('clear waiting');
@@ -61,7 +60,6 @@ function WaitingRoom() {
   }
 
   function play() {
-    console.log('play pressed');
     socket.emit('clear waiting');
     socket.emit('play', userRedux.email);
   }
@@ -77,14 +75,12 @@ function WaitingRoom() {
       setButtonsClicked(true, false, false);
       hostRoom();
     } else {
-      console.log('clearing waiting');
       socket.emit('clear waiting', socket.id)
       setButtonsClicked(false, false, false);
     }
   }
 
   function onJoinCLicked() {
-    console.log('joining');
     if (!joinClicked) {
       setButtonsClicked(false, true, false);
     } else {
@@ -98,14 +94,10 @@ function WaitingRoom() {
       play();
     } else {
       setButtonsClicked(false, false, false);
-      console.log('clearing waiting');
       socket.emit('clear waiting')
     }
   }
 
-  useEffect(() => {
-    console.log(roomId);
-  }, [roomId])
 
   return (
     <div className="waiting-room">
@@ -203,16 +195,15 @@ function WaitingRoom() {
               <div className="loading-animation" />
             </>
           ) : (
-            <div className="wr-amazing-text">
-              <p>The most amazing</p>
-              <p>learning game.</p>
+            <div>
+              <h1 className={`tutorial-button wr-play-button ${playClicked && 'wait-r-red'} ${
+                joinClicked && 'joinClicked'
+              } ${createClicked && 'createClicked'}`} onClick={() => navigate('/tutorial')}>Tutorial</h1>
             </div>
           )}
         </div>
       </div>
-      <div className='wr-game-history'>
 
-      </div>
     </div>
   );
 }

@@ -175,54 +175,41 @@ export function distance (start: value, end: value, width: number) { // TODO: Ge
   return Math.pow(Math.pow(x, 2) + Math.pow(y, 2), 0.5);
 }
 
-export function aStar (valueX: value, valueY: value, graph: Graph, distance: (start:value, end: value) => number, h=10) {
-  let unvisitedNodes: {[key: value]: [number, number]} = {};
-  let visitedNodes = new Map();
-  let thoughtProcess: value[] = [];
-  for (let vertex of graph.vertices) {
-    unvisitedNodes[vertex] = [Infinity, distance(vertex, valueY)*h];
+export function aStar (valueX: number, valueY: number, graph: Graph, distance: (start:value, end: value) => number, h=10) {
+  const visited: Set<number> = new Set();
+  let unvisitedNodes: Map<number, [number, number, number | null]> = new Map();
+  let visitedNodes: Map<number, [number, number]> = new Map();
+  let nNodes = graph.vertices.length;
+  for (let vertex of graph.vertices as number[]) {
+    if (vertex === valueX) unvisitedNodes.set(vertex, [0, 0, null]);
+    else unvisitedNodes.set(vertex, [Infinity, distance(vertex, valueY)*h, null]);
   }
-  unvisitedNodes[valueX][0] = 0;
-  while (true) {
-    let node = Object.keys(unvisitedNodes).reduce((acc, key) => {
-      return unvisitedNodes[key][0] + unvisitedNodes[key][1] < (acc[1] as number) + (acc[2] as number) ? [key, unvisitedNodes[key][0], unvisitedNodes[key][1]] : acc;
-    }, ['null', Infinity, Infinity]);
-    node = [Number(node[0]), Number(node[1])]
-    let cost = unvisitedNodes[node[0]][0];
-    visitedNodes.set(Number(node[0]), cost);
-    delete unvisitedNodes[node[0]];
-    if (node[1] === Infinity) return false;
-    if (Number(node[0]) === valueY) {
-      break;
-    };
-    if (Number(node[0])!==valueX) thoughtProcess.push(node[0]);
-    let neighbors = graph.neighbors(node[0]).filter(neighbor => !visitedNodes.has(neighbor));
-    for (let neighbor of neighbors) {
-      let weight = graph.getEdgeValue(node[0], neighbor) as number;
-      let sum = cost + weight;
-      if (sum < unvisitedNodes[neighbor][0]) {
-        unvisitedNodes[neighbor] = [sum, unvisitedNodes[neighbor][1]]
-      };
+  for (let i = 0; i < nNodes; i++) {
+    let currentNode: [number, [number, number, number | null]] = [-1, [Infinity, Infinity, -1]];
+    unvisitedNodes.forEach((value, key) => {
+      if (value[0] + value[1] < currentNode[1][0] + currentNode[1][1]) currentNode = [key, value];
+    })
+    visited.add(currentNode[0]);
+    if (currentNode[0] === valueX) {
+      visitedNodes.set(currentNode[0], [currentNode[1][0], -1]);
+    } else {
+      visitedNodes.set(currentNode[0], [currentNode[1][0], currentNode[1][2]] as [number, number]);
     }
+    if (currentNode[0] === valueY) break;
+    if (currentNode[1][0] === Infinity) return false;
+    let neighbors = graph.neighbors(currentNode[0]).map(neighbor => Number(neighbor));
+    for (let neighbor of neighbors) {
+      if (visited.has(neighbor)) continue;
+      let weight = graph.getEdgeValue(currentNode[0], neighbor);
+      let sum = currentNode[1][0] + (weight as number);
+      let neighborCurrent = unvisitedNodes.get(neighbor) as [number, number, number];
+      if (sum < neighborCurrent[0]) unvisitedNodes.set(neighbor, [sum as number, neighborCurrent[1],currentNode[0]]);
+    }
+    unvisitedNodes.delete(currentNode[0]);
   }
-
-  let path: value[] = [valueY];
-  let inPath: {[key: value]: boolean} = {valueY:true};
-  while (path[path.length-1] !== valueX) {
-    let to = path[path.length-1];
-    for (let from of graph.neighbors(to)) {
-      if (inPath[from]) continue;
-      let weight = graph.getEdgeValue(from, to);
-      if (weight && visitedNodes.get(to) - weight === visitedNodes.get(from)) {
-        path.push(from);
-        inPath[from] = true;
-        break;
-      }
-    } 
+  const path = [valueY];
+  while(path[0] !== valueX) {
+    path.unshift(visitedNodes.get(path[0])![1])
   }
-  path.push(valueX);
-  return {
-    path: path.map(el=>Number(el)).reverse().slice(2),
-    visited: thoughtProcess
-  };
+  return {path: path.slice(1), visited: Array.from(visited)}
 }

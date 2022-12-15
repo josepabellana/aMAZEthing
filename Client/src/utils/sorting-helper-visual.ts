@@ -142,7 +142,6 @@ export async function quickSortVisual(animations:any, DELAY_MS:number, width:num
       const [barOneIdx, barTwoIdx] = animations[i];
       const barOne = arrayBars[barOneIdx] as HTMLElement;
       const barTwo = arrayBars[barTwoIdx] as HTMLElement;
-      console.log(barTwoIdx, barTwo)
       const colorRed =  'var(--red)' 
       const colorGreen = 'var(--dark-green)';
       await delay(DELAY_MS)
